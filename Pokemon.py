@@ -43,13 +43,3 @@ for pokemon in sortedlist:
 
 # Close the .csv file.
 csvfile.close()
-
-
-import bokeh
-bokeh.sampledata.download()
-
-data = "Speeds.csv"
-
-from bokeh.charts import Bar, output_file, save
-bar_graph = Bar(data, label='Pokemon', values='speed', title='Speeds')
-save(bar_graph)
