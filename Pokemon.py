@@ -21,7 +21,7 @@ csvwriter = csv.writer(csvfile, delimiter = ",")
 csvwriter.writerow(["Pokemon", "Speed"])
 
 # Create an empty dictionary to sort by values later on.
-type_pokemon = {}
+speed_pokemon = {}
 
 # For each Pokemon, determine its name and base speed stat.
 # Export them into a dictionary as a list.
@@ -32,10 +32,10 @@ for pokemon in type_list:
     speed_results = rspeed.json()
     speed_list = speed_results
     speed = speed_list["stats"][0]["base_stat"]
-    type_pokemon[name] = speed
+    speed_pokemon[name] = speed
 
 # Sort by dictionary values.
-sortedlist = sorted(type_pokemon.items(), key = operator.itemgetter(1))
+sortedlist = sorted(speed_pokemon.items(), key = operator.itemgetter(1))
 
 # For each pokemon in the sorted list, write a row in the .csv file.
 for pokemon in sortedlist:
