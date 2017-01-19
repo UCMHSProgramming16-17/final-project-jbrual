@@ -50,7 +50,7 @@ for pokemon in type_list:
     sdef_pokemon.append(sdef)
     speed_pokemon.append(speed)
 
-rows = zip(name_pokemon,atk_pokemon,def_pokemon,satk_pokemon,sdef_pokemon,speed_pokemon)
+rows = zip(name_pokemon,hp_pokemon,atk_pokemon,def_pokemon,satk_pokemon,sdef_pokemon,speed_pokemon)
 for row in rows:
     csvwriter.writerow(row)
 
