@@ -3,6 +3,7 @@
 import csv, requests, operator, pandas as pd, numpy as np
 from bokeh.plotting import figure, output_file, save
 from bokeh.charts import Bar, output_file, save
+from bokeh.palettes import Accent4 as pal
 
 # Reach the API by building its URL.
 # Use user input to ask for a certain type.
@@ -22,7 +23,7 @@ csvwriter = csv.writer(csvfile, delimiter = ",")
 # Establish header row.
 csvwriter.writerow(["Pokemon", "HP", "Atk", "Def", "SAtk", "SDef", "Spd"])
 
-# Create empty lists to sort by values later on.
+# Create empty lists to store Pokemon stats.
 name_pokemon = []
 hp_pokemon = []
 atk_pokemon = []
@@ -34,6 +35,7 @@ speed_pokemon = []
 # For each Pokemon, determine its name and stats.
 # Append them to their respective lists.
 for pokemon in type_list:
+    # Search the json for the name of the Pokemon and its stats.
     name = pokemon["pokemon"]["name"]
     url = pokemon["pokemon"]["url"]
     rspeed = requests.get(url)
@@ -45,6 +47,7 @@ for pokemon in type_list:
     sdef = results["stats"][1]["base_stat"]
     speed = results["stats"][0]["base_stat"]
     
+    # Append the Pokemon's stats to each respective list.
     name_pokemon.append(name)
     hp_pokemon.append(hp)
     atk_pokemon.append(atk)
@@ -53,6 +56,7 @@ for pokemon in type_list:
     sdef_pokemon.append(sdef)
     speed_pokemon.append(speed)
 
+# Zip the rows to write each Pokemon's stats.
 rows = zip(name_pokemon,hp_pokemon,atk_pokemon,def_pokemon,satk_pokemon,sdef_pokemon,speed_pokemon)
 for row in rows:
     csvwriter.writerow(row)
@@ -60,8 +64,10 @@ for row in rows:
 # Close the .csv file.
 csvfile.close()
 
+# Create the dataframe from the .csv file. Store bar graph in a variable form.
 df = pd.read_csv("Stats.csv")
 graph1 = Bar(df, 'Pokemon', values='Spd', legend=False, title= type_poke + "-type Pokemon Stats")
 
+# Generate the .html file for the Bokeh graph.
 output_file("Stats.html")
 save(graph1)
