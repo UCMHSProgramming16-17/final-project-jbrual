@@ -44,6 +44,7 @@ for pokemon in type_list:
     speed = results["stats"][0]["base_stat"]
     
     name_pokemon.append(name)
+    hp_pokemon.append(hp)
     atk_pokemon.append(atk)
     def_pokemon.append(defense)
     satk_pokemon.append(satk)
