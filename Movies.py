@@ -1,6 +1,7 @@
 import requests, csv, pandas as pd, numpy as np
 from bokeh.plotting import figure, output_file, save
 from bokeh.charts import Bar, output_file, save
+from bokeh.palettes import Accent4 as pal
 
 title_list = []
 release_list = []
@@ -33,7 +34,7 @@ def query_yes_no():
         search_movie()
         query_yes_no()
     elif response == "n":
-        print("Creating CSV file...")
+        print("Creating CSV file...\nCreating graphs...")
     else:
         print("Invalid response. Try again.")
         query_yes_no()
@@ -51,7 +52,7 @@ for row in rows:
 csvfile.close()
 
 df = pd.read_csv("Movies.csv")
-graph1 = Bar(df, width=500)
+graph1 = Bar(df, 'Title', values='IMDb Rating', palette=pal, legend=False, title="IMDb Ratings for Movies")
 
 output_file("Movies.html")
 save(graph1)
